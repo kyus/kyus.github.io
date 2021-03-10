@@ -4,7 +4,7 @@
 }
 
 .App-logo {
-  height: 40vmin;
+  height: 200px;
   pointer-events: none;
 }
 
@@ -36,4 +36,34 @@
   to {
     transform: rotate(360deg);
   }
+}
+.bird {
+  background-image: url('/img/bird-cells-new.svg');
+  background-size: auto 100%;
+  width: 88px;
+  height: 125px;
+  will-change: background-position;
+
+  animation-name: fly-cycle;
+  animation-duration: 1s;
+  animation-delay: -0.5s;
+  animation-timing-function: steps(10);
+  animation-iteration-count: infinite;
+  color: #fff;
+}
+
+.bird-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  will-change: transform;
+}
+
+@keyframes fly-cycle {
+
+  100% {
+    background-position: -3600px 0;
+  }
+
 }
