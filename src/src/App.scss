@@ -1,4 +1,12 @@
 @import '~antd/dist/antd.css';
+
+$customRed: #ff0000;
+$customOrange: #f1a400;
+$customGreen: #14b759;
+$customPurple: #8957e5;
+$customGray: #ddd;
+$customBlue: #388bfd;
+
 .App {
   text-align: center;
 }
@@ -67,3 +75,145 @@
   }
 
 }
+
+
+.profile-color-modes-illu-group {
+  stroke: $customGray;
+}
+.profile-color-modes-illu-frame {
+  opacity: 0;
+}
+.profile-color-modes-illu-frame:nth-child(8) {
+  animation: profile-light-color-modes-illu-anim-frame-show 0s forwards,profile-light-color-modes-illu-anim-frame-hide 0s .3s forwards;
+}
+.profile-color-modes-illu-frame:nth-child(9) {
+  animation: profile-light-color-modes-illu-anim-frame-show 0s .3s forwards,profile-light-color-modes-illu-anim-frame-hide 0s .36s forwards;
+}
+.profile-color-modes-illu-frame:nth-child(10) {
+  animation: profile-light-color-modes-illu-anim-frame-show 0s .36s forwards;
+}
+
+
+.darkMode {
+  .profile-color-modes-illu-group {
+    animation: profile-color-modes-illu-anim .2s cubic-bezier(.72,.08,1,.68) backwards
+  }
+  .profile-color-modes-illu-green {
+    stroke: $customGreen;
+    animation-delay: .8s;
+    animation-duration: .2s;
+    animation-timing-function: cubic-bezier(.47,2.92,.84,-1.5);
+  }
+  .profile-color-modes-illu-red {
+    stroke: $customRed;
+    animation-delay: .4s;
+    animation-duration: .1s;
+  }
+  .profile-color-modes-illu-orange {
+    stroke: $customOrange;
+    animation-delay: .5s;
+    animation-duration: .1s;
+  }
+  .profile-color-modes-illu-purple {
+    stroke: $customPurple;
+    animation-delay: .6s;
+    animation-duration: .1s;
+  }
+  .profile-color-modes-illu-blue {
+    stroke: $customBlue;
+    animation-delay: .7s;
+    animation-duration: .1s;
+  }
+  .profile-color-modes-illu-frame {
+    animation: profile-color-modes-illu-anim-frame-show 0s forwards,profile-color-modes-illu-anim-frame-hide 0s forwards;
+    &:first-child {
+      opacity: 1;
+      animation: profile-color-modes-illu-anim-frame-hide 0s forwards;
+      animation-delay: 1.8s;
+    }
+    &:nth-child(2) {
+      animation-delay: 1.8s,2.58s;
+    }
+
+    &:nth-child(3) {
+      animation-delay: 2.58s,2.66s;
+    }
+
+    &:nth-child(4) {
+      animation-delay: 2.66s,2.78s;
+    }
+
+    &:nth-child(5) {
+      animation-delay: 2.78s,2.84s;
+    }
+
+    &:nth-child(6) {
+      animation-delay: 2.84s,3.44s;
+    }
+
+    &:nth-child(7) {
+      animation-delay: 3.44s,3.56s;
+    }
+    &:nth-child(8) {
+      animation:profile-color-modes-illu-anim-frame-show 0s forwards;
+      animation-delay: 3.56s;
+    }
+    &:nth-child(9),
+    &:nth-child(10) {
+      animation: none;
+    }
+  }
+}
+
+@keyframes profile-color-modes-illu-anim {
+  0% {
+    stroke: $customGray;
+  }
+}
+
+@keyframes profile-light-color-modes-illu-anim-frame-show {
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-out
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes profile-light-color-modes-illu-anim-frame-hide {
+  0% {
+    opacity: 1;
+    animation-timing-function: ease-in
+  }
+
+  to {
+    opacity: 0
+  }
+}
+
+@keyframes profile-color-modes-illu-anim-frame-show {
+  0% {
+    opacity: 0;
+    animation-timing-function: ease-out
+  }
+
+  to {
+    opacity: 1
+  }
+}
+
+@keyframes profile-color-modes-illu-anim-frame-hide {
+  0% {
+    opacity: 1;
+    animation-timing-function: ease-in
+  }
+
+  to {
+    opacity: 0
+  }
+}
+
+
+

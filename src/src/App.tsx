@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
+import Cat from "./cat";
 import { Layout, Menu, Button } from "antd";
 import "./App.scss";
 import {
@@ -14,6 +15,7 @@ import {
   SmileFilled,
   WomanOutlined,
 } from "@ant-design/icons";
+import classNames from "classnames";
 
 function App() {
   const [viewSide, setViewSide] = useState(true);
@@ -50,16 +52,9 @@ function App() {
           hidden={!viewSide}
         >
           <Menu theme={darkMode ? "dark" : "light"}>
-            <Menu.Item style={{ height: 200 }}>
-              <div style={{ width: "100%" }}>
-                <img
-                  src={logo}
-                  className="App-logo"
-                  alt="logo"
-                  style={{ width: "100%" }}
-                />
-              </div>
-            </Menu.Item>
+            <div className={classNames({ darkMode })} style={{ padding: 20 }}>
+              {<Cat />}
+            </div>
             <Menu.Item icon={<TwitterOutlined />}>side1</Menu.Item>
             <Menu.Item icon={<QqOutlined />}>side2</Menu.Item>
             <Menu.Item icon={<LinkOutlined />}>
