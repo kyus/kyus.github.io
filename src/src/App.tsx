@@ -16,8 +16,17 @@ import {
   WomanOutlined,
 } from "@ant-design/icons";
 import classNames from "classnames";
+import {RouteComponentProps} from "react-router-dom";
+import {Main, About, Post} from "./component";
 
-function App() {
+interface postingProps {
+  category?:string|undefined,
+  postNumber?:string|undefined
+}
+
+function App(props:RouteComponentProps<postingProps>) {
+  const {history, location, match} = props;
+  console.log('props', match);
   const [viewSide, setViewSide] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const { Header, Content, Sider, Footer } = Layout;
@@ -31,6 +40,15 @@ function App() {
     setViewSide(!viewSide);
     localStorage.setItem("sideBar", viewSide ? "closed" : "opened");
   };
+
+  const getContent = () => {
+    const {pathname} = location;
+    switch(true) {
+      case /^\/about/.test(pathname): return <About />;
+      case /^\/post/.test(pathname): return <Post {...props} />;
+      default: return <Main {...props} />;
+    }
+  }
 
   useEffect(() => {
     const theme = localStorage.getItem("theme");
@@ -82,9 +100,9 @@ function App() {
                   {viewSide ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
                 </div>
               </Menu.Item>
-              <Menu.Item icon={<AreaChartOutlined />}>frist</Menu.Item>
-              <Menu.Item icon={<AliwangwangOutlined />}>second</Menu.Item>
-              <Menu.Item icon={<WomanOutlined />}>third</Menu.Item>
+              <Menu.Item icon={<AreaChartOutlined />} onClick={() => history.push('/')}>main</Menu.Item>
+              <Menu.Item icon={<AliwangwangOutlined />} onClick={() => history.push('/about')}>About</Menu.Item>
+              <Menu.Item icon={<WomanOutlined />} onClick={() => {history.push('/post/all/0')}}>Post</Menu.Item>
               <Menu.Item
                 icon={darkMode ? <SmileFilled /> : <AliwangwangFilled />}
                 onClick={changeTheme}
@@ -93,7 +111,7 @@ function App() {
               </Menu.Item>
             </Menu>
           </Header>
-          <Content>content layer</Content>
+          <Content>{getContent()}</Content>
           <Footer>
             <div>Copyright 2021. kyus.All rights reserved.</div>
           </Footer>

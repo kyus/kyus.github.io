@@ -3,10 +3,21 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import {BrowserRouter, Switch, Route } from "react-router-dom";
+function AppWrapper() {
+   return (
+       <BrowserRouter>
+           <Switch>
+               <Route path={"/post/:category/:postNumber"} component={App} />
+               <Route path={"/"} component={App} />
+           </Switch>
+       </BrowserRouter>
+   )
+}
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <AppWrapper />
   </React.StrictMode>,
   document.getElementById('root')
 );
