@@ -17,17 +17,17 @@ import {
 } from "@ant-design/icons";
 import classNames from "classnames";
 import _ from "lodash";
-import {mainMenu, subMenu, categoryMenu} from "./config/menu";
-import {RouteComponentProps} from "react-router-dom";
-import {Main, About, Post} from "./component";
+import { mainMenu, subMenu, categoryMenu } from "./config/menu";
+import { RouteComponentProps } from "react-router-dom";
+import { Main, About, Post } from "./component";
 
 interface postingProps {
-  category?:string|undefined,
-  postNumber?:string|undefined
+  category?: string | undefined;
+  postNumber?: string | undefined;
 }
 
-function App(props:RouteComponentProps<postingProps>) {
-  const {history, location, match} = props;
+function App(props: RouteComponentProps<postingProps>) {
+  const { history, location, match } = props;
   const [viewSide, setViewSide] = useState(true);
   const [darkMode, setDarkMode] = useState(false);
   const { Header, Content, Sider, Footer } = Layout;
@@ -42,42 +42,60 @@ function App(props:RouteComponentProps<postingProps>) {
     localStorage.setItem("sideBar", viewSide ? "closed" : "opened");
   };
 
-  const getIcon = (type:string) => {
-    switch(type) {
-      case "main": return <AreaChartOutlined />
-      case "about": return <AliwangwangOutlined />
-      case "twitter": return <TwitterOutlined />
-      case "qq": return <QqOutlined />
-      case "comment": return <CommentOutlined />
-      default: return <GithubOutlined />
+  const getIcon = (type: string) => {
+    switch (type) {
+      case "main":
+        return <AreaChartOutlined />;
+      case "about":
+        return <AliwangwangOutlined />;
+      case "twitter":
+        return <TwitterOutlined />;
+      case "qq":
+        return <QqOutlined />;
+      case "comment":
+        return <CommentOutlined />;
+      default:
+        return <GithubOutlined />;
     }
-  }
+  };
 
   const getMainMenu = () => {
-    return (
-        _.map(mainMenu, (m, k) => {
-          return <Menu.Item key={k} onClick={() => history.push(m.link)} icon={getIcon(m.icon)}>{m.name}</Menu.Item>
-        })
-    )
-  }
+    return _.map(mainMenu, (m, k) => {
+      return (
+        <Menu.Item
+          key={k}
+          onClick={() => history.push(m.link)}
+          icon={getIcon(m.icon)}
+        >
+          {m.name}
+        </Menu.Item>
+      );
+    });
+  };
 
   const getSideMenu = () => {
-    const {pathname} = location;
-    switch(true) {
-      case /^\/about/.test(pathname): return subMenu["about"];
-      case /^\/post/.test(pathname): return categoryMenu;
-      default: return subMenu["main"];
+    const { pathname } = location;
+    switch (true) {
+      case /^\/about/.test(pathname):
+        return subMenu["about"];
+      case /^\/post/.test(pathname):
+        return categoryMenu;
+      default:
+        return subMenu["main"];
     }
-  }
+  };
 
   const getContent = () => {
-    const {pathname} = location;
-    switch(true) {
-      case /^\/about/.test(pathname): return <About />;
-      case /^\/post/.test(pathname): return <Post {...props} />;
-      default: return <Main {...props} />;
+    const { pathname } = location;
+    switch (true) {
+      case /^\/about/.test(pathname):
+        return <About />;
+      case /^\/post/.test(pathname):
+        return <Post {...props} />;
+      default:
+        return <Main {...props} />;
     }
-  }
+  };
 
   useEffect(() => {
     const theme = localStorage.getItem("theme");
@@ -93,63 +111,71 @@ function App(props:RouteComponentProps<postingProps>) {
   const sideMenu = getSideMenu();
 
   return (
-      <div className="App">
-        <Layout style={{ minHeight: "100vh" }}>
-          <Sider
-              theme={darkMode ? "dark" : "light"}
-              breakpoint={"xs"}
-              hidden={!viewSide}
-          >
-            <Menu theme={darkMode ? "dark" : "light"}>
-              <div className={classNames({ darkMode })} style={{ padding: 20 }}>
-                {<Cat />}
-              </div>
-              {
-                _.map(sideMenu, (m, k) => {
-                  return <Menu.Item key={k} icon={getIcon(m.icon)} onClick={() => history.push(m.link)}>{m.name}</Menu.Item>
-                })
-              }
-              <Menu.Item icon={<LinkOutlined />}>
-                <Button type={"primary"}>
-                  <a
-                      className="App-link"
-                      href="https://reactjs.org"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                  >
-                    Learn React
-                  </a>
-                </Button>
+    <div className="App">
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider
+          theme={darkMode ? "dark" : "light"}
+          breakpoint={"xs"}
+          hidden={!viewSide}
+        >
+          <Menu theme={darkMode ? "dark" : "light"}>
+            <div className={classNames({ darkMode })} style={{ padding: 20 }}>
+              {<Cat />}
+            </div>
+            {_.map(sideMenu, (m, k) => {
+              return (
+                <Menu.Item
+                  key={k}
+                  icon={getIcon(m.icon)}
+                  onClick={() => history.push(m.link)}
+                >
+                  {m.name}
+                </Menu.Item>
+              );
+            })}
+            <Menu.Item icon={<LinkOutlined />}>
+              <Button type={"primary"}>
+                <a
+                  className="App-link"
+                  href="https://reactjs.org"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Learn React
+                </a>
+              </Button>
+            </Menu.Item>
+            <Menu.Item icon={<MenuUnfoldOutlined />} onClick={toggleSideBar}>
+              hide menu
+            </Menu.Item>
+          </Menu>
+        </Sider>
+        <Layout>
+          <Header style={{ padding: 0 }}>
+            <Menu theme={darkMode ? "dark" : "light"} mode={"horizontal"}>
+              <Menu.Item onClick={toggleSideBar}>
+                <div>
+                  {viewSide ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
+                </div>
               </Menu.Item>
-              <Menu.Item icon={<MenuUnfoldOutlined />} onClick={toggleSideBar}>
-                hide menu
+              {getMainMenu()}
+              <Menu.Item
+                icon={
+                  darkMode ? <AliwangwangOutlined /> : <AliwangwangFilled />
+                }
+                onClick={changeTheme}
+              >
+                {darkMode ? "lightMode" : "darkMode"}
               </Menu.Item>
             </Menu>
-          </Sider>
-          <Layout>
-            <Header style={{ padding: 0 }}>
-              <Menu theme={darkMode ? "dark" : "light"} mode={"horizontal"}>
-                <Menu.Item onClick={toggleSideBar}>
-                  <div>
-                    {viewSide ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}
-                  </div>
-                </Menu.Item>
-                {getMainMenu()}
-                <Menu.Item
-                    icon={darkMode ? <AliwangwangOutlined /> : <AliwangwangFilled />}
-                    onClick={changeTheme}
-                >
-                  {darkMode ? "lightMode" : "darkMode"}
-                </Menu.Item>
-              </Menu>
-            </Header>
-            <Content>{getContent()}</Content>
-            <Footer>
-              <div>Copyright 2021. kyus.All rights reserved.</div>
-            </Footer>
-          </Layout>
+          </Header>
+          <Content>{getContent()}</Content>
+          <Footer>
+            <div>Copyright 2021. kyus.All rights reserved.</div>
+          </Footer>
         </Layout>
-      </div>
+      </Layout>
+    </div>
   );
 }
 
