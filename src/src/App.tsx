@@ -73,9 +73,14 @@ function App(props: RouteComponentProps<postingProps>) {
     });
   };
 
-  const getSideMenu = () => {
-    type menuStructure = { [subLink: string]: any };
+  const getSideMenu = (): Array<{
+    name: string;
+    icon: string;
+    link: string;
+  }> => {
+    type menuStructure = { [subLink: string]: Array<any> };
     const menu: menuStructure = subMenu;
+
     const { pathname } = location;
     const subLink = _.get(pathname.split("/"), `${1}`, "main");
     const key: string = subLink ? subLink : "main";
@@ -134,11 +139,11 @@ function App(props: RouteComponentProps<postingProps>) {
               <Button type={"primary"}>
                 <a
                   className="App-link"
-                  href="https://reactjs.org"
+                  href="https://github.com/kyus"
                   target="_blank"
                   rel="noopener noreferrer"
                 >
-                  Learn React
+                  GitHub
                 </a>
               </Button>
             </Menu.Item>
