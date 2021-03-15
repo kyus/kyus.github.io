@@ -74,15 +74,12 @@ function App(props: RouteComponentProps<postingProps>) {
   };
 
   const getSideMenu = () => {
+    type menuStructure = { [subLink: string]: any };
+    const menu: menuStructure = subMenu;
     const { pathname } = location;
-    switch (true) {
-      case /^\/about/.test(pathname):
-        return subMenu["about"];
-      case /^\/post/.test(pathname):
-        return categoryMenu;
-      default:
-        return subMenu["main"];
-    }
+    const subLink = _.get(pathname.split("/"), `${1}`, "main");
+    const key: string = subLink ? subLink : "main";
+    return key === "post" ? categoryMenu : menu[key];
   };
 
   const getContent = () => {
