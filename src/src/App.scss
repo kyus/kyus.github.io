@@ -16,6 +16,18 @@ $customBlue: #388bfd;
   pointer-events: none;
 }
 
+.toggleTheme {
+  position: absolute;
+  top:0;
+  right:0;
+  padding: 0 5px;
+  .ant-switch {
+    &.ant-switch-checked {
+      background: #f1a400;
+    }
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
