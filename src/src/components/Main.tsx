@@ -1,11 +1,9 @@
 import React from "react";
-import {RouteComponentProps} from "react-router-dom";
+import { RouteComponentProps } from "react-router-dom";
 
-function Main({match}:RouteComponentProps) {
-    console.log('props', match);
-    return (
-        <div>this is content area</div>
-    )
+function Main({ history, location, match }: RouteComponentProps) {
+  console.log("props", location, match);
+  return <div>this is content area</div>;
 }
 
 export default Main;
