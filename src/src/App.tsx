@@ -10,11 +10,11 @@ import { getIcon } from "./lib/utils";
 import { nightIcon, sunIcon } from "./lib/svgIcons";
 import SideMenu from "./SideMenu";
 
-interface postingProps {
-  category?: string | undefined;
-  postNumber?: string | undefined;
+interface matchProps {
+  category: string;
+  postNumber: string;
 }
-function App(props: RouteComponentProps<postingProps>) {
+function App(props: RouteComponentProps<matchProps>) {
   const { history, location } = props;
   const [viewSide, setViewSide] = useState(false);
   const [darkMode, setDarkMode] = useState(false);
