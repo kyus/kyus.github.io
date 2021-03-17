@@ -4,4 +4,25 @@
     color: #fff;
     transition: all .3s ease-in;
   }
+  .site-page-header-ghost-wrapper {
+    .ant-page-header {
+      background: rgba(0,0,0,.4);
+      color: #fff;
+    }
+    .ant-page-header-heading-title {
+      color: #fff;
+    }
+    .ant-page-header-heading-sub-title {
+      color: #ccc;
+    }
+    .ant-descriptions-item-container {
+      .ant-descriptions-item-label,
+      .ant-descriptions-item-content {
+        color: #fff;
+      }
+    }
+    .ant-page-header-back-button {
+      color: #fff;
+    }
+  }
 }
