@@ -6,6 +6,7 @@ $customGreen: #14b759;
 $customPurple: #8957e5;
 $customGray: #ddd;
 $customBlue: #388bfd;
+$customDark: #202932;
 
 .App {
   text-align: center;
@@ -25,6 +26,28 @@ $customBlue: #388bfd;
     &.ant-switch-checked {
       background: #f1a400;
     }
+  }
+}
+
+.not-found-wrapper {
+  color: #ccc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: calc(100vh - 150px);
+  .not-found {
+    flex:1;
+  }
+  .title {
+    line-height: 60px;
+    font-size: 1.4em;
+    color: #888;
+  }
+}
+
+.darkMode {
+  .not-found-wrapper {
+    color: #888;
   }
 }
 
@@ -58,15 +81,6 @@ $customBlue: #388bfd;
   }
 }
 
-@keyframes fly-cycle {
-
-  100% {
-    background-position: -3600px 0;
-  }
-
-}
-
-
 .profile-color-modes-illu-group {
   stroke: $customGray;
 }
@@ -82,7 +96,6 @@ $customBlue: #388bfd;
 .profile-color-modes-illu-frame:nth-child(10) {
   animation: profile-light-color-modes-illu-anim-frame-show 0s .36s forwards;
 }
-
 
 .darkMode {
   .profile-color-modes-illu-group {
@@ -205,5 +218,6 @@ $customBlue: #388bfd;
   }
 }
 
+@import 'Antd.custom.scss';
 
 
