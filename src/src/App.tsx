@@ -1,11 +1,18 @@
-import React, { useState, useEffect, FC } from "react";
-import { Layout, Menu, Switch } from "antd";
+import React, { useState, useEffect, FC, useCallback } from "react";
+import { Layout, Menu, Switch as AntSwitch } from "antd";
 import "./App.scss";
 import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
 import _ from "lodash";
+import classNames from "classnames";
 import { mainMenu } from "./config/menu";
-import { RouteComponentProps } from "react-router-dom";
-import { Main, About, Post } from "./components";
+import {
+  BrowserRouter,
+  Route,
+  RouteComponentProps,
+  withRouter,
+  Switch,
+} from "react-router-dom";
+import { Main, About, Post, ErrorPage } from "./components";
 import { getIcon } from "./lib/utils";
 import { nightIcon, sunIcon } from "./lib/svgIcons";
 import SideMenu from "./SideMenu";
@@ -22,6 +29,7 @@ function App(props: RouteComponentProps<matchProps>) {
   const [selectedSideMenu, setSelectedSideMenu] = useState("0");
   const { Header, Content, Footer } = Layout;
   const { pathname } = location;
+  const pathnameArr: string[] = pathname.split("/");
 
   const changeTheme = (): void => {
     setDarkMode(!darkMode);
@@ -34,17 +42,6 @@ function App(props: RouteComponentProps<matchProps>) {
   };
 
   const GetMainMenu: FC = () => {
-    const _setSelectedMenu = (
-      k: number,
-      pathnameArr: string[],
-      link: string[]
-    ): void => {
-      if (k.toString() !== selectedMenu && pathnameArr[1] === link[1]) {
-        setSelectedMenu(k.toString());
-      }
-    };
-    const pathnameArr: string[] = pathname.split("/");
-
     return (
       <Menu
         theme={darkMode ? "dark" : "light"}
@@ -55,8 +52,6 @@ function App(props: RouteComponentProps<matchProps>) {
           <div>{viewSide ? <MenuFoldOutlined /> : <MenuUnfoldOutlined />}</div>
         </Menu.Item>
         {_.map(mainMenu, (m, k) => {
-          const link: string[] = m.link.split("/");
-          _setSelectedMenu(k, pathnameArr, link);
           return (
             <Menu.Item
               key={k}
@@ -71,18 +66,7 @@ function App(props: RouteComponentProps<matchProps>) {
     );
   };
 
-  const GetContents: FC = () => {
-    switch (true) {
-      case /^\/about/.test(pathname):
-        return <About />;
-      case /^\/post/.test(pathname):
-        return <Post {...props} />;
-      default:
-        return <Main {...props} />;
-    }
-  };
-
-  useEffect(() => {
+  const initialize = useCallback((): void => {
     const theme = localStorage.getItem("theme");
     const sideBar = localStorage.getItem("sideBar");
     if (theme === "darkMode") {
@@ -93,13 +77,26 @@ function App(props: RouteComponentProps<matchProps>) {
     }
   }, []);
 
+  const _setSelectedMenu = useCallback(
+    (k: number, pathnameArr: string[], link: string[]): void => {
+      if (k.toString() !== selectedMenu && pathnameArr[1] === link[1]) {
+        setSelectedMenu(k.toString());
+      }
+    },
+    [selectedMenu]
+  );
+
+  useEffect(initialize, [initialize]);
+
   useEffect(() => {
-    _.map(mainMenu, (m) => {
+    _.map(mainMenu, (m, k) => {
+      const link: string[] = m.link.split("/");
+      _setSelectedMenu(k, pathnameArr, link);
       if (selectedSideMenu !== "0" && pathname === m.link) {
         setSelectedSideMenu("0");
       }
     });
-  }, [pathname, selectedSideMenu]);
+  }, [pathname, selectedSideMenu, _setSelectedMenu, pathnameArr]);
 
   const sideMenuProps = {
     darkMode,
@@ -111,14 +108,14 @@ function App(props: RouteComponentProps<matchProps>) {
   };
 
   return (
-    <div className="App">
+    <div className={classNames("App", { darkMode })}>
       <Layout style={{ minHeight: "100vh" }}>
         <SideMenu {...sideMenuProps} />
         <Layout>
           <Header style={{ padding: 0 }}>
             <GetMainMenu />
             <div className={"toggleTheme"}>
-              <Switch
+              <AntSwitch
                 autoFocus
                 checked={darkMode}
                 onChange={changeTheme}
@@ -128,7 +125,13 @@ function App(props: RouteComponentProps<matchProps>) {
             </div>
           </Header>
           <Content>
-            <GetContents />
+            <Switch>
+              <Route path={"/post/:category/:postNumber"} component={Post} />
+              <Route path={"/post/:category/"} component={Post} />
+              <Route path={"/about"} component={About} />
+              <Route path={"/main"} component={Main} />
+              <Route path={"*"} component={ErrorPage} />
+            </Switch>
           </Content>
           <Footer>
             <div>Copyright 2021. kyus.All rights reserved.</div>
@@ -139,4 +142,4 @@ function App(props: RouteComponentProps<matchProps>) {
   );
 }
 
-export default App;
+export default withRouter(App);
