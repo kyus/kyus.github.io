@@ -124,12 +124,14 @@ function App(props: RouteComponentProps<matchProps>) {
               />
             </div>
           </Header>
-          <Content>
+          <div id={"main-banner"} />
+          <Content className={"content-wrapper"}>
             <Switch>
               <Route path={"/post/:category/:postNumber"} component={Post} />
               <Route path={"/post/:category/"} component={Post} />
               <Route path={"/about"} component={About} />
               <Route path={"/main"} component={Main} />
+              <Route path={"/"} exact component={Main} />
               <Route path={"*"} component={ErrorPage} />
             </Switch>
           </Content>
