@@ -1,5 +1,6 @@
 import React from "react";
 import {RouteComponentProps} from "react-router-dom";
+import {ErrorPage} from "./index";
 
 interface postingProps {
     category?:string|undefined,
@@ -8,7 +9,10 @@ interface postingProps {
 function Post({match}:RouteComponentProps<postingProps>) {
     console.log('matchPost', match);
     return (
+      <>
         <div>_emptyPost {`${match.params.category} : ${match.params.postNumber}`}</div>
+        <ErrorPage />
+      </>
     )
 }
 

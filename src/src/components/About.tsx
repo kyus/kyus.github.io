@@ -1,9 +1,13 @@
 import React from "react";
+import { RouteComponentProps } from "react-router-dom";
+import {ErrorPage} from "./index";
 
-function About() {
-    return (
-        <div>about me...</div>
-    )
+function About({ history }: RouteComponentProps) {
+  return (
+    <div>
+      <ErrorPage />
+    </div>
+  );
 }
 
 export default About;
