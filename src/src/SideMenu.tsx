@@ -6,14 +6,14 @@ import classNames from "classnames";
 import Cat from "./cat";
 import { getIcon } from "./lib/utils";
 import { LinkOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
-import React, { useEffect } from "react";
+import React, { Dispatch, useEffect } from "react";
 
 interface sideMenuProps extends RouteComponentProps {
   darkMode: boolean;
   viewSide: boolean;
   selectedSideMenu: string;
-  setSelectedSideMenu: any;
-  toggleSideBar: any;
+  setSelectedSideMenu: Dispatch<string>;
+  toggleSideBar: () => void;
 }
 function SideMenu(props: sideMenuProps) {
   const { Sider } = Layout;
