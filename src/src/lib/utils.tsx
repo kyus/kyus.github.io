@@ -1,17 +1,17 @@
 import {
   AliwangwangOutlined,
-  AreaChartOutlined,
   CommentOutlined,
   GithubOutlined,
   QqOutlined,
   TwitterOutlined,
+  NotificationOutlined,
 } from "@ant-design/icons";
 import React from "react";
 
-export const getIcon = (type: string) => {
+export const getIcon = (type: string):JSX.Element => {
   switch (type) {
     case "main":
-      return <AreaChartOutlined />;
+      return <NotificationOutlined />;
     case "about":
       return <AliwangwangOutlined />;
     case "twitter":
