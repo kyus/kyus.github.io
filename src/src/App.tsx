@@ -124,7 +124,6 @@ function App(props: RouteComponentProps<matchProps>) {
               />
             </div>
           </Header>
-          <div id={"main-banner"} />
           <Content className={"content-wrapper"}>
             <Switch>
               <Route path={"/post/:category/:postNumber"} component={Post} />
