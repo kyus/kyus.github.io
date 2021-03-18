@@ -23,13 +23,13 @@ function Main({ history, location, match }: RouteComponentProps) {
           <Descriptions  column={1}>
             <Descriptions.Item label="Created">KYUS</Descriptions.Item>
             <Descriptions.Item label="Association">
-              <a>1615988464135</a>
+              <a>1616073536254</a>
             </Descriptions.Item>
             <Descriptions.Item label="Creation Time">
               2021-03-17
             </Descriptions.Item>
             <Descriptions.Item label="Bundle Time">
-              2021-03-17
+              2021-03-18
             </Descriptions.Item>
           </Descriptions>
         </PageHeader>
