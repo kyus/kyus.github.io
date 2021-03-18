@@ -6,7 +6,6 @@ import _ from "lodash";
 import classNames from "classnames";
 import { mainMenu } from "./config/menu";
 import {
-  BrowserRouter,
   Route,
   RouteComponentProps,
   withRouter,
